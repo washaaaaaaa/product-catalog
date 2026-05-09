@@ -35,6 +35,9 @@ const cardImages = {
   pens: localImages['notebooksAndPens/pen/pens'] ?? 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1080&q=80',
 };
 
+const imageFor = (path: string, fallback: string) => localImages[path] ?? fallback;
+
+
 type SearchEntry = {
   title: string;
   page: string;
@@ -48,318 +51,662 @@ type SearchEntry = {
   };
 };
 
-const capItems = [
-  {
-    title: 'Cotton Cap',
-    subtitle: 'Clean front panel with a bold brim.',
-    image: localImages['capsAndApparel/caps/cotton gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/cotton gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/cotton black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/cotton blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/cotton green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/cotton maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/cotton pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/cotton red'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/cotton white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/cotton yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Trucker Cap 1-tone',
-    subtitle: 'Soft crown and relaxed styling.',
-    image: localImages['capsAndApparel/caps/trucker1 gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/trucker1 gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/trucker1 black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/trucker1 blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/trucker1 green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/trucker1 maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/trucker1 pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/trucker1 red'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/trucker1 white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/trucker1 yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Trucker Cap 2-tone',
-    subtitle: 'Soft crown and relaxed styling.',
-    image: localImages['capsAndApparel/caps/trucker2 gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/trucker2 gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/trucker2 black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/trucker2 blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/trucker2 green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/trucker2 maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/trucker2 pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/trucker2 red'] ?? cardImages.caps },
-      { name: 'Violet', hex: '#ee82ee', image: localImages['capsAndApparel/caps/trucker2 violet'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/trucker2 yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Corduroy Cap',
-    subtitle: 'Low-profile with a sleek silhouette.',
-    image: localImages['capsAndApparel/caps/corduroy gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/corduroy gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/corduroy black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/corduroy blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/corduroy green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/corduroy maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/corduroy pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/corduroy red'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/corduroy white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/corduroy yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Acid-washed Cap',
-    subtitle: 'Soft crown and relaxed styling.',
-    image: localImages['capsAndApparel/caps/half acid gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/half acid gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/half acid black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/half acid blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/half acid green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/half acid maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/half acid pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/half acid red'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/half acid yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Cotton Bucket Hat',
-    subtitle: 'Sporty style built for the course.',
-    image: localImages['capsAndApparel/caps/cottonb gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/cottonb gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/cottonb black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/cottonb blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/cottonb green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/cottonb maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/cottonb pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/cottonb red'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/cottonb white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/cottonb yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Acid-washed Bucket Hat',
-    subtitle: 'Adjustable fit with classic appeal.',
-    image: localImages['capsAndApparel/caps/acid wb gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/acid wb gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/acid wb black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/acid wb blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/acid wb green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/acid wb maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/acid wb pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/acid wb red'] ?? cardImages.caps },
-      { name: 'Violet', hex: '#ee82ee', image: localImages['capsAndApparel/caps/acid wb violet'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/acid wb yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Corduroy Bucket Hat',
-    subtitle: 'Custom detail with premium stitching.',
-    image: localImages['capsAndApparel/caps/cb gray'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/cb gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/cb black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/cb blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/cb green'] ?? cardImages.caps },
-      { name: 'Maroon', hex: '#800000', image: localImages['capsAndApparel/caps/cb maroon'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/cb pink'] ?? cardImages.caps },
-      { name: 'Red', hex: '#d00000', image: localImages['capsAndApparel/caps/cb red'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/cb white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/cb yellow'] ?? cardImages.caps },
-    ],
-  },
-  {
-    title: 'Golf Cap',
-    subtitle: 'Custom detail with premium stitching.',
-    image: localImages['capsAndApparel/caps/gcap black'] ?? cardImages.caps,
-    colorOptions: [
-      { name: 'Gray', hex: '#9e9e9e', image: localImages['capsAndApparel/caps/gcap gray'] ?? cardImages.caps },
-      { name: 'Black', hex: '#000000', image: localImages['capsAndApparel/caps/gcap black'] ?? cardImages.caps },
-      { name: 'Blue', hex: '#243c8e', image: localImages['capsAndApparel/caps/gcap blue'] ?? cardImages.caps },
-      { name: 'Green', hex: '#1f7f3d', image: localImages['capsAndApparel/caps/gcap green'] ?? cardImages.caps },
-      { name: 'Navy Blue', hex: '#000080', image: localImages['capsAndApparel/caps/gcap navy blue'] ?? cardImages.caps },
-      { name: 'Pink', hex: '#ff69b4', image: localImages['capsAndApparel/caps/gcap pink'] ?? cardImages.caps },
-      { name: 'Orange', hex: '#ffa500', image: localImages['capsAndApparel/caps/gcap orange'] ?? cardImages.caps },
-      { name: 'White', hex: '#f8f9fa', image: localImages['capsAndApparel/caps/gcap white'] ?? cardImages.caps },
-      { name: 'Yellow', hex: '#ffd700', image: localImages['capsAndApparel/caps/gcap yellow'] ?? cardImages.caps },
-      { name: 'Violet', hex: '#8A2BE2', image: localImages['capsAndApparel/caps/gcap violet'] ?? cardImages.caps },
-    ],
-  },
-];
+const categories = {
+  drinkware: [
+    {
+      title: '150mL Pocket Thermos',
+      subtitle: 'Compact thermos for on-the-go.',
+      image: imageFor('drinkware/01 - 150mL Pocket Thermos', cardImages.tumblers),
+    },
+    {
+      title: '250mL Pocket Thermos',
+      subtitle: 'Portable thermos for daily use.',
+      image: imageFor('drinkware/02 - 250mL Pocket Thermos', cardImages.tumblers),
+    },
+    {
+      title: '350mL Mini Cup',
+      subtitle: 'Small cup for quick drinks.',
+      image: imageFor('drinkware/03 - 350mL Mini Cup', cardImages.tumblers),
+    },
+    {
+      title: '350mL Stainless Mug',
+      subtitle: 'Durable stainless steel mug.',
+      image: imageFor('drinkware/04 - 350mL Stainless Mug', cardImages.tumblers),
+    },
+    {
+      title: '350mL Egg Mug',
+      subtitle: 'Unique egg-shaped mug.',
+      image: imageFor('drinkware/05 - 350mL Egg Mug', cardImages.tumblers),
+    },
+    {
+      title: '500mL Tyeso w/ Flat Top',
+      subtitle: 'Stylish thermos with a flat lid.',
+      image: imageFor('drinkware/06 - 500mL Tyeso w Flat Top', cardImages.tumblers),
+    },
+    {
+      title: '500mL Vacuum Flask Set',
+      subtitle: 'Insulated flask set for hot drinks.',
+      image: imageFor('drinkware/07 - 500mL Vacuum Flask Set', cardImages.tumblers),
+    },
+    {
+      title: '530mL Tyeso w/ Lock',
+      subtitle: 'Secure thermos with locking lid.',
+      image: imageFor('drinkware/08 - 530mL Tyeso w Lock', cardImages.tumblers),
+    },
+    {
+      title: '750mL Tyeso w/ Lock',
+      subtitle: 'Large thermos with secure lock.',
+      image: imageFor('drinkware/09 - 750mL Tyeso w Lock', cardImages.tumblers),
+    },
+    {
+      title: '750mL Tyeso w/ Nozzle',
+      subtitle: 'Thermos with convenient nozzle.',
+      image: imageFor('drinkware/10 - 750mL Tyeso w Nozzle', cardImages.tumblers),
+    },
+    {
+      title: '750mL Tyeso Bowling',
+      subtitle: 'Fun bowling-themed thermos.',
+      image: imageFor('drinkware/11 - 750mL Tyeso Bowling', cardImages.tumblers),
+    },
+    {
+      title: '600mL STR w/ Handle',
+      subtitle: 'Straight thermos with handle.',
+      image: imageFor('drinkware/12 - 600mL STR w Handle', cardImages.tumblers),
+    },
+    {
+      title: '900mL STR w/ Handle',
+      subtitle: 'Large straight thermos.',
+      image: imageFor('drinkware/13 - 900mL STR w Handle', cardImages.tumblers),
+    },
+    {
+      title: '1200mL STR Tumbler',
+      subtitle: 'Extra large tumbler option.',
+      image: imageFor('drinkware/14 - 1200mL STR Tumbler', cardImages.tumblers),
+    },
+    {
+      title: '600mL Frosted Plastic Tumbler',
+      subtitle: 'Frosted plastic for cool drinks.',
+      image: imageFor('drinkware/15 - 600mL Frosted Plastic Tumbler', cardImages.tumblers),
+    },
+    {
+      title: '8oz Hip Flask Set',
+      subtitle: 'Hip flask set with accessories.',
+      image: imageFor('drinkware/16 - 8oz Hip Flask Set', cardImages.tumblers),
+    },
+    {
+      title: '8oz Hip Flask',
+      subtitle: 'Compact hip flask.',
+      image: imageFor('drinkware/17 - 8oz Hip Flask', cardImages.tumblers),
+    },
+    {
+      title: 'Hip Flask Set',
+      subtitle: 'Complete hip flask collection.',
+      image: imageFor('drinkware/18 - Hip Flask Set', cardImages.tumblers),
+    },
+    {
+      title: 'Beer Mug',
+      subtitle: 'Classic beer mug design.',
+      image: imageFor('drinkware/19 - Beer Mug', cardImages.tumblers),
+    },
+    {
+      title: '600 mL Tumbler',
+      subtitle: 'Standard tumbler size.',
+      image: imageFor('drinkware/20 - 600 mL Tumbler', cardImages.tumblers),
+    },
+    {
+      title: 'Wooden Tumbler',
+      subtitle: 'Natural wooden tumbler.',
+      image: imageFor('drinkware/21 - Wooden Tumbler', cardImages.tumblers),
+    },
+    {
+      title: '350mL Wooden Mug',
+      subtitle: 'Eco-friendly wooden mug.',
+      image: imageFor('drinkware/22 - 350mL Wooden Mug', cardImages.tumblers),
+    },
+    {
+      title: 'Ceramic Mugs',
+      subtitle: 'Elegant ceramic mug collection.',
+      image: imageFor('drinkware/23 - Ceramic Mugs', cardImages.tumblers),
+    },
+  ],
+  kitchenware: [
+    {
+      title: 'Wooden Lunchbox',
+      subtitle: 'Natural wooden lunchbox with secure lid.',
+      image: imageFor('kitchenware/24 - Wooden Lunchbox', cardImages.businessCards),
+    },
+    {
+      title: '5-Piece Coaster Set',
+      subtitle: 'Set of five decorative coasters.',
+      image: imageFor('kitchenware/25 - 5-Piece Coaster Set', cardImages.businessCards),
+    },
+    {
+      title: 'Cheese Board Set',
+      subtitle: 'Cheese board set with serving accessories.',
+      image: imageFor('kitchenware/26 - Cheese Board Set', cardImages.businessCards),
+    },
+    {
+      title: 'Cutlery Set w/ Case',
+      subtitle: 'Portable cutlery set with protective case.',
+      image: imageFor('kitchenware/27 - Cutlery Set w/ Case', cardImages.businessCards),
+    },
+    {
+      title: 'Cutlery Set w/ Canvas Pouch',
+      subtitle: 'Cutlery set with canvas storage pouch.',
+      image: imageFor('kitchenware/28 - Cutlery Set w/ Canvas Pouch', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Utensils with Canvas Pouch',
+      subtitle: 'Reusable utensils with a canvas pouch.',
+      image: imageFor('kitchenware/29 - Wooden Utensils with Canvas Pouch', cardImages.businessCards),
+    },
+    {
+      title: 'Cheese Knives Set w/ Box',
+      subtitle: 'Specialized cheese knives in a premium box.',
+      image: imageFor('kitchenware/30 - Cheese Knives Set w/ Box', cardImages.businessCards),
+    },
+    {
+      title: 'Keychain Bottle Opener',
+      subtitle: 'Bottle opener attached to a handy keychain.',
+      image: imageFor('kitchenware/31 - Keychain Bottle Opener', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Bottle Opener',
+      subtitle: 'Sturdy wooden bottle opener.',
+      image: imageFor('kitchenware/32 - Wooden Bottle Opener', cardImages.businessCards),
+    },
+  ],
+  umbrellas: [
+    { title: 'Two Fold Umbrella', subtitle: 'Compact, two-fold umbrella for easy storage.', image: imageFor('umbrellasAndBags/33 - Two Fold Umbrella', cardImages.toteBags) },
+    { title: 'Golf Umbrella', subtitle: 'Large golf umbrella for outdoor use.', image: imageFor('umbrellasAndBags/34 - Golf Umbrella', cardImages.toteBags) },
+    { title: 'Foldable Umbrella', subtitle: 'Compact and portable umbrella.', image: imageFor('umbrellasAndBags/35 - Foldable Umbrella', cardImages.toteBags) },
+  ],
+  toteBags: [
+    { title: 'Flat Canvas Tote Bag', subtitle: 'Durable canvas tote bag with wide handles.', image: imageFor('umbrellasAndBags/36 - Flat Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
+    { title: 'Drawstring Bag', subtitle: 'Lightweight drawstring bag for easy carrying.', image: imageFor('umbrellasAndBags/37 - Drawstring Bag', cardImages.toteBags), colors: ['#000080', '#FFFFFF', '#228B22'] },
+    { title: 'Customized Canvas Tote Bag', subtitle: 'Custom-printed canvas tote bag.', image: imageFor('umbrellasAndBags/38 - Customized Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
+    { title: 'Customized Canvas Tote Bag (With pockets)', subtitle: 'Canvas tote bag with extra pocket storage.', image: imageFor('umbrellasAndBags/39 - Customized Canvas Tote Bag (With pockets)', cardImages.toteBags), colors: ['#FF4500', '#000000', '#FFD700'] },
+    { title: 'Duffle Bag', subtitle: 'Spacious duffle bag for travel and events.', image: imageFor('umbrellasAndBags/40 - Duffle Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
+  ],
+  caps: [
+    {
+      title: 'Acid Wash Cap',
+      subtitle: 'Textured acid wash cap for a vintage look.',
+      image: imageFor('capsAndApparel/caps/acid wb black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/acid wb black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/acid wb blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/acid wb gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/acid wb green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/acid wb maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/acid wb pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/acid wb red', cardImages.caps) },
+        { name: 'Violet', hex: '#8A2BE2', image: imageFor('capsAndApparel/caps/acid wb violet', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/acid wb yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'CB Cap',
+      subtitle: 'Classic CB cap with versatile styling.',
+      image: imageFor('capsAndApparel/caps/cb black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/cb black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/cb blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/cb gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/cb green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/cb maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/cb pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/cb red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cb white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cb yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Corduroy Cap',
+      subtitle: 'Soft corduroy cap with premium texture.',
+      image: imageFor('capsAndApparel/caps/corduroy black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/corduroy black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/corduroy blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/corduroy gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/corduroy green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/corduroy maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/corduroy pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/corduroy red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/corduroy white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/corduroy yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Cotton Cap',
+      subtitle: 'Clean cotton cap for everyday wear.',
+      image: imageFor('capsAndApparel/caps/cotton black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/cotton black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/cotton blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/cotton gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/cotton green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/cotton maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/cotton pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/cotton red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cotton white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cotton yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'G Cap',
+      subtitle: 'Classic G cap with bold styling.',
+      image: imageFor('capsAndApparel/caps/gcap black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/gcap black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/gcap navy blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/gcap gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/gcap green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/gcap violet', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/gcap pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/gcap orange', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/gcap white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/gcap yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Half Acid Cap',
+      subtitle: 'Half acid cap with unique design.',
+      image: imageFor('capsAndApparel/caps/half acid black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/half acid black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/half acid blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/half acid gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/half acid green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/half acid maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/half acid pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/half acid red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/half acid white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/half acid yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Trucker1 Cap',
+      subtitle: 'Breathable trucker cap with mesh back.',
+      image: imageFor('capsAndApparel/caps/trucker1 black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/trucker1 black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/trucker1 blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/trucker1 gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/trucker1 green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/trucker1 maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/trucker1 pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/trucker1 red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/trucker1 white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/trucker1 yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Trucker2 Cap',
+      subtitle: 'Structured trucker cap with snapback.',
+      image: imageFor('capsAndApparel/caps/trucker2 black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/trucker2 black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/trucker2 blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/trucker2 gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/trucker2 green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/trucker2 maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/trucker2 pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/trucker2 red', cardImages.caps) },
+        { name: 'Violet', hex: '#8A2BE2', image: imageFor('capsAndApparel/caps/trucker2 violet', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/trucker2 yellow', cardImages.caps) },
+      ],
+    },
+    {
+      title: 'Cottonb Cap',
+      subtitle: 'Cotton B cap with solid construction.',
+      image: imageFor('capsAndApparel/caps/cottonb black', cardImages.caps),
+      colorOptions: [
+        { name: 'Black', hex: '#000000', image: imageFor('capsAndApparel/caps/cottonb black', cardImages.caps) },
+        { name: 'Blue', hex: '#0000FF', image: imageFor('capsAndApparel/caps/cottonb blue', cardImages.caps) },
+        { name: 'Gray', hex: '#808080', image: imageFor('capsAndApparel/caps/cottonb gray', cardImages.caps) },
+        { name: 'Green', hex: '#008000', image: imageFor('capsAndApparel/caps/cottonb green', cardImages.caps) },
+        { name: 'Maroon', hex: '#800000', image: imageFor('capsAndApparel/caps/cottonb maroon', cardImages.caps) },
+        { name: 'Pink', hex: '#FFC0CB', image: imageFor('capsAndApparel/caps/cottonb pink', cardImages.caps) },
+        { name: 'Red', hex: '#FF0000', image: imageFor('capsAndApparel/caps/cottonb red', cardImages.caps) },
+        { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cottonb white', cardImages.caps) },
+        { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cottonb yellow', cardImages.caps) },
+      ],
+    },
+  ],
+  shirts: [
+    {
+      title: 'Round Neck Shirt',
+      subtitle: 'Classic round neck shirt for everyday wear.',
+      image: imageFor('capsAndApparel/41 - Round Neck Shirt', cardImages.tShirts),
+    },
+    {
+      title: 'Roundneck Dri-fit Shirt',
+      subtitle: 'Breathable dri-fit shirt for active use.',
+      image: imageFor('capsAndApparel/42 - Roundneck Dri-fit Shirt', cardImages.tShirts),
+    },
+    {
+      title: 'Honeycomb Polo Shirt',
+      subtitle: 'Smart polo shirt with honeycomb texture.',
+      image: imageFor('capsAndApparel/44 - Honeycomb Polo Shirt', cardImages.tShirts),
+    },
+  ],
+  aprons: [
+    {
+      title: 'Customized Apron',
+      subtitle: 'Durable custom apron for kitchen or catering staff.',
+      image: imageFor('capsAndApparel/43 - Customized Apron', cardImages.aprons),
+    },
+  ],
+  hoodies: [
+    {
+      title: 'Hoodies',
+      subtitle: 'Cozy hoodies with custom branding options.',
+      image: imageFor('capsAndApparel/46 - Hoodies', cardImages.tShirts),
+    },
+  ],
+  jackets: [
+    {
+      title: 'Corporate Jacket',
+      subtitle: 'Professional jacket suitable for corporate uniforms.',
+      image: imageFor('capsAndApparel/45 - Corporate Jacket', cardImages.jackets),
+    },
+  ],
+  notebooks: [
+    {
+      title: 'A5 Moleskin Notebook (100 leaves)',
+      subtitle: 'Premium moleskin notebook.',
+      image: imageFor('notebooksAndPens/47 - A5 Moleskin Notebook (100 leaves)', cardImages.plannersNotebooks),
+    },
+    {
+      title: 'A5 Moleskin Notebook (150 leaves)',
+      subtitle: 'Extended notebook with 150 leaves.',
+      image: imageFor('notebooksAndPens/48 - A5 Moleskin Notebook (150 leaves)', cardImages.plannersNotebooks),
+    },
+    {
+      title: 'A5 Notebook w/ Pen',
+      subtitle: 'Notebook with included pen.',
+      image: imageFor('notebooksAndPens/57 - A5 Notebook w Pen', cardImages.plannersNotebooks),
+    },
+    {
+      title: 'Phone Stand',
+      subtitle: 'Convenient phone stand.',
+      image: imageFor('notebooksAndPens/58 - Phone Stand', cardImages.plannersNotebooks),
+    },
+    {
+      title: 'Pocket Notebook',
+      subtitle: 'Small portable notebook.',
+      image: imageFor('notebooksAndPens/60 - Pocket Notebook', cardImages.plannersNotebooks),
+    },
+  ],
+  pens: [
+    {
+      title: 'Bamboo Ballpen',
+      subtitle: 'Eco-friendly bamboo pen.',
+      image: imageFor('notebooksAndPens/49 - Bamboo Ballpen', cardImages.pens),
+    },
+    {
+      title: 'Golf Pen w/ Case',
+      subtitle: 'Golf-themed pen with case.',
+      image: imageFor('notebooksAndPens/50 - Golf Pen w Case', cardImages.pens),
+    },
+    {
+      title: 'Silver Plastic Ballpen',
+      subtitle: 'Classic silver plastic pen.',
+      image: imageFor('notebooksAndPens/51 - Silver Plastic Ballpen', cardImages.pens),
+    },
+    {
+      title: 'Retractable Metal Ballpen',
+      subtitle: 'Retractable metal pen.',
+      image: imageFor('notebooksAndPens/52 - Retractable Metal Ballpen', cardImages.pens),
+    },
+    {
+      title: 'Plastic Ballpen w/ Stylus',
+      subtitle: 'Pen with stylus for touchscreens.',
+      image: imageFor('notebooksAndPens/53 - Plastic Ballpen w Stylus', cardImages.pens),
+    },
+    {
+      title: 'Gold Metal Ballpen',
+      subtitle: 'Elegant gold metal pen.',
+      image: imageFor('notebooksAndPens/54 - Gold Metal Ballpen', cardImages.pens),
+    },
+    {
+      title: 'Plastic Pen w/ Sleeve',
+      subtitle: 'Pen with protective sleeve.',
+      image: imageFor('notebooksAndPens/55 - Plastic Pen w Sleeve', cardImages.pens),
+    },
+    {
+      title: 'Sign Pen w/ Case',
+      subtitle: 'Signature pen with case.',
+      image: imageFor('notebooksAndPens/56 - Sign Pen w Case', cardImages.pens),
+    },
+    {
+      title: 'Bamboo Pen w/ Case',
+      subtitle: 'Bamboo pen with case.',
+      image: imageFor('notebooksAndPens/59 - Bamboo Pen w Case', cardImages.pens),
+    },
+    {
+      title: 'Desk Pen',
+      subtitle: 'Professional desk pen.',
+      image: imageFor('notebooksAndPens/61 - Desk Pen', cardImages.pens),
+    },
+  ],
+  planners: [],
+  accessories: [
+    {
+      title: 'Wooden Mirror',
+      subtitle: 'Elegant wooden mirror.',
+      image: imageFor('accessories/62 - Wooden Mirror', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Lamp',
+      subtitle: 'Decorative wooden lamp.',
+      image: imageFor('accessories/63 - Wooden Lamp', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Keychain',
+      subtitle: 'Wooden keychain accessory.',
+      image: imageFor('accessories/64 - Wooden Keychain', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Clock',
+      subtitle: 'Functional wooden clock.',
+      image: imageFor('accessories/65 - Wooden Clock', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Hairbrush',
+      subtitle: 'Natural wooden hairbrush.',
+      image: imageFor('accessories/66 - Wooden Hairbrush', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Comb',
+      subtitle: 'Sturdy wooden comb.',
+      image: imageFor('accessories/67 - Wooden Comb', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden USB Flash drive with Case (8GB)',
+      subtitle: 'Wooden USB drive with case.',
+      image: imageFor('accessories/68 - Wooden USB Flash drive with Case (8GB)', cardImages.businessCards),
+    },
+    {
+      title: 'USB Flash drive with Metal Case (8GB)',
+      subtitle: 'Metal-cased USB drive.',
+      image: imageFor('accessories/69 - USB Flash drive with Metal Case (8GB)', cardImages.businessCards),
+    },
+    {
+      title: 'Compact Mirror',
+      subtitle: 'Portable compact mirror.',
+      image: imageFor('accessories/70 - Compact Mirror', cardImages.businessCards),
+    },
+    {
+      title: 'Foldable Fans',
+      subtitle: 'Portable foldable fans.',
+      image: imageFor('accessories/71 - Foldable Fans', cardImages.businessCards),
+    },
+    {
+      title: 'Chess Board w/ Wine Accessories',
+      subtitle: 'Chess board with wine accessories.',
+      image: imageFor('accessories/72 - Chess Board w Wine Accessories', cardImages.businessCards),
+    },
+    {
+      title: 'Mini Portable Fans',
+      subtitle: 'Compact portable fans.',
+      image: imageFor('accessories/73 - Mini Portable Fans', cardImages.businessCards),
+    },
+    {
+      title: '8.5 x 3.5 inches Canvas Pouch',
+      subtitle: 'Canvas pouch for small essentials.',
+      image: imageFor('accessories/74 - 8.5 x 3.5 inches Canvas Pouch', cardImages.businessCards),
+    },
+    {
+      title: 'PVC Bag Tag',
+      subtitle: 'Durable PVC bag tag.',
+      image: imageFor('accessories/75 - PVC Bag Tag', cardImages.businessCards),
+    },
+    {
+      title: 'Acrylic Name Plate',
+      subtitle: 'Professional acrylic name plate.',
+      image: imageFor('accessories/76 - Acrylic Name Plate', cardImages.businessCards),
+    },
+    {
+      title: 'Lanyard',
+      subtitle: 'Custom lanyard for ID cards and badges.',
+      image: imageFor('accessories/77 - Lanyard', cardImages.businessCards),
+    },
+    {
+      title: 'Leather Mouse Pad',
+      subtitle: 'Premium leather mouse pad.',
+      image: imageFor('accessories/78 - Leather Mouse Pad', cardImages.businessCards),
+    },
+    {
+      title: 'Button Pins',
+      subtitle: 'Custom button pins.',
+      image: imageFor('accessories/79 - Button Pins', cardImages.businessCards),
+    },
+    {
+      title: 'Card Holder',
+      subtitle: 'Convenient card holder.',
+      image: imageFor('accessories/80 - Card Holder', cardImages.businessCards),
+    },
+    {
+      title: 'Short Lanyard w/ Carabiner',
+      subtitle: 'Short lanyard with a carabiner clip.',
+      image: imageFor('accessories/81 - Short Lanyard w Carabiner', cardImages.businessCards),
+    },
+    {
+      title: 'Wooden Fan',
+      subtitle: 'Elegant wooden fan.',
+      image: imageFor('accessories/82 - Wooden Fan', cardImages.businessCards),
+    },
+  ],
+  cards: [
+    {
+      title: 'Paper Fans',
+      subtitle: 'Paper Fans with custom designs.',
+      image: imageFor('bundle/92 - Paper Fans', cardImages.businessCards),
+    },
+  ],
+  flyers: [
+    {
+      title: 'Bundle with Box and Ribbon',
+      subtitle: 'Custom Bundle with Box and Ribbon.',
+      image: imageFor('bundle/89 - Customized Envelope', cardImages.businessCards),
+    },
+  ],
+  banners: [
+    {
+      title: '50-sheet Notepad',
+      subtitle: 'Compact notepad for quick notes.',
+      image: imageFor('bundle/86 - 50-sheet Notepad', cardImages.businessCards),
+    },
+    {
+      title: 'Roll-up Banner',
+      subtitle: 'Portable roll-up banner.',
+      image: imageFor('bundle/87 - Roll-up Banner', cardImages.businessCards),
+    },
+  ],
+  sinta: [
+    {
+      title: 'Sintra Board',
+      subtitle: 'Durable sintra board signage.',
+      image: imageFor('bundle/88 - Sintra Board', cardImages.businessCards),
+    },
+    {
+      title: 'Customized Envelope',
+      subtitle: 'Personalized envelopes.',
+      image: imageFor('bundle/90 - Bundle with Box and Ribbon', cardImages.businessCards),
+    },
+        {
+      title: 'Bundle Set',
+      subtitle: 'Custom Bundle Set for gift giving.',
+      image: imageFor('bundle/91 - Bundle Set', cardImages.businessCards),
+    },
+  ],
+  tarpaulin: [
+    {
+      title: 'A5 Notebooks (Ruled Pages)',
+      subtitle: 'Notebooks  for Writing.',
+      image: imageFor('bundle/83 - A5 Notebook (Ruled Pages)', cardImages.businessCards),
+    },
+    {
+      title: 'A5 Flyers',
+      subtitle: 'Custom flyers for promotion.',
+      image: imageFor('bundle/84 - A5 Flyers', cardImages.businessCards),
+    },
+    {
+      title: 'Business Cards',
+      subtitle: 'Custom business cards for various uses.',
+      image: imageFor('bundle/85 - Business Cards', cardImages.businessCards),
+    },
+  ],
+};
 
-const toteBagItems = [
-  { title: 'Combi Tote Bag w/ Inside Pocket', subtitle: 'Durable and eco-friendly.', image: cardImages.toteBags, colors: ['#000000', '#FFFFFF', '#8B4513'] },
-  { title: 'Combi Tote Bag w/ Outside Pocket', subtitle: 'Durable and eco-friendly.', image: cardImages.toteBags, colors: ['#000000', '#FFFFFF', '#8B4513'] },
-  { title: 'Combi Tote Bag w/ both Inside and Outside Pockets', subtitle: 'Durable and eco-friendly.', image: cardImages.toteBags, colors: ['#000000', '#FFFFFF', '#8B4513'] },
-  { title: 'Solid Tote Bag w/ Inside Pocket', subtitle: 'Keep your items cool.', image: cardImages.toteBags, colors: ['#000080', '#FFFFFF', '#228B22'] },
-  { title: 'Solid Tote Bag w/ Outside Pocket', subtitle: 'Keep your items cool.', image: cardImages.toteBags, colors: ['#000080', '#FFFFFF', '#228B22'] },
-  { title: 'Solid Tote Bag w/ both Inside and Outside Pockets', subtitle: 'Durable and eco-friendly.', image: cardImages.toteBags, colors: ['#000000', '#FFFFFF', '#8B4513'] },
-  { title: 'Flat Tote Bag', subtitle: 'Compact and convenient.', image: cardImages.toteBags, colors: ['#FF4500', '#000000', '#FFD700'] },
-];
 
-const shirtItems = [
-  { title: 'Classic Crew Shirt', subtitle: 'Everyday comfort with custom print.', image: cardImages.tShirts, colors: ['#000000', '#FFFFFF', '#d63384'] },
-  { title: 'Graphic Tee', subtitle: 'Art-forward style for any event.', image: cardImages.tShirts, colors: ['#343a40', '#FFFFFF', '#0d6efd'] },
-  { title: 'Performance Shirt', subtitle: 'Lightweight fabric for active use.', image: cardImages.tShirts, colors: ['#198754', '#FFFFFF', '#6f42c1'] },
-  { title: 'Long Sleeve Shirt', subtitle: 'Clean lines and comfortable fit.', image: cardImages.tShirts, colors: ['#000000', '#adb5bd', '#ffc107'] },
-];
 
-const cardItems = [
-  { title: 'A5 Flyers', subtitle: 'Professional A5 sized flyers.', image: cardImages.businessCards },
-];
 
-const flyerItems = [
-  { title: 'Calling Cards', subtitle: 'Custom calling cards.', image: cardImages.businessCards },
-];
 
-const plannerItems = [
-  { title: 'Weekly Planner', subtitle: 'Keep your schedule organized.', image: cardImages.plannersNotebooks },
-  { title: 'Monthly Planner', subtitle: 'Plan goals and deadlines with ease.', image: cardImages.plannersNotebooks },
-  { title: 'Daily Planner', subtitle: 'Track tasks and priorities every day.', image: cardImages.plannersNotebooks },
-];
 
-const notebookItems = [
-  { title: 'A5 Moleskin Notebook (100 leaves)', subtitle: 'Premium moleskin notebook.', image: cardImages.plannersNotebooks },
-  { title: 'A5 Moleskin Notebook (80 leaves)', subtitle: 'Compact moleskin notebook.', image: cardImages.plannersNotebooks },
-  { title: 'A5 Notebook w/ Pen', subtitle: 'Notebook with included pen.', image: cardImages.plannersNotebooks },
-  { title: 'Pocket Notebook', subtitle: 'Small portable notebook.', image: cardImages.plannersNotebooks },
-  { title: 'A5 Notebook Ruled Pages', subtitle: 'Ruled pages for organized notes.', image: cardImages.plannersNotebooks },
-  { title: '50-sheet Notepad (5.5 x 4 inches)', subtitle: 'Small notepad for quick notes.', image: cardImages.plannersNotebooks },
-];
 
-const penItems = [
-  { title: 'Bamboo Ballpen', subtitle: 'Eco-friendly bamboo pen.', image: cardImages.pens },
-  { title: 'Golf Pen w/ Case', subtitle: 'Golf-themed pen with case.', image: cardImages.pens },
-  { title: 'Silver Plastic Ballpen', subtitle: 'Classic silver plastic pen.', image: cardImages.pens },
-  { title: 'Retractable Metal Ballpen', subtitle: 'Retractable metal pen.', image: cardImages.pens },
-  { title: 'Plastic Ballpen w/ Stylus', subtitle: 'Pen with stylus for touchscreens.', image: cardImages.pens },
-  { title: 'Gold Metal Ballpen', subtitle: 'Elegant gold metal pen.', image: cardImages.pens },
-  { title: 'Plastic Pen w/ Sleeves', subtitle: 'Pen with protective sleeves.', image: cardImages.pens },
-  { title: 'Sign Pen w/ Case', subtitle: 'Signature pen with case.', image: cardImages.pens },
-  { title: 'Bamboo Pen w/ Case', subtitle: 'Bamboo pen with case.', image: cardImages.pens },
-  { title: 'Desk Pen', subtitle: 'Professional desk pen.', image: cardImages.pens },
-  { title: 'Phone Stand', subtitle: 'Convenient phone stand.', image: cardImages.pens },
-];
 
-const tumblerItems = [
-  { title: '150mL Pocket Thermos', subtitle: 'Compact thermos for on-the-go.', image: cardImages.tumblers },
-  { title: '250mL Pocket Thermos', subtitle: 'Portable thermos for daily use.', image: cardImages.tumblers },
-  { title: '500mL Vacuum Flask Set', subtitle: 'Insulated flask set for hot drinks.', image: cardImages.tumblers },
-  { title: '500mL Tyeso w/ Flat Top', subtitle: 'Stylish thermos with flat lid.', image: cardImages.tumblers },
-  { title: '530mL Tyeso w/ Lock', subtitle: 'Secure thermos with locking lid.', image: cardImages.tumblers },
-  { title: '750mL Tyeso w/ Nozzle', subtitle: 'Thermos with convenient nozzle.', image: cardImages.tumblers },
-  { title: '750mL Tyeso w/ Lock', subtitle: 'Large thermos with secure lock.', image: cardImages.tumblers },
-  { title: '750mL Tyeso Bowling', subtitle: 'Fun bowling-themed thermos.', image: cardImages.tumblers },
-  { title: '350mL Mini Cup', subtitle: 'Small cup for quick drinks.', image: cardImages.tumblers },
-  { title: '350mL Stainless Mug', subtitle: 'Durable stainless steel mug.', image: cardImages.tumblers },
-  { title: '350mL Egg Mug', subtitle: 'Unique egg-shaped mug.', image: cardImages.tumblers },
-  { title: '350mL Wooden Mug', subtitle: 'Eco-friendly wooden mug.', image: cardImages.tumblers },
-  { title: 'Beer Mug', subtitle: 'Classic beer mug design.', image: cardImages.tumblers },
-  { title: 'Ceramic Mugs', subtitle: 'Elegant ceramic mug collection.', image: cardImages.tumblers },
-  { title: '600mL STR w/ Handle', subtitle: 'Straight thermos with handle.', image: cardImages.tumblers },
-  { title: '900mL STR w/ Handle', subtitle: 'Large straight thermos.', image: cardImages.tumblers },
-  { title: '1200mL STR Tumbler', subtitle: 'Extra large tumbler option.', image: cardImages.tumblers },
-  { title: '600mL Frosted Plastic Tumbler', subtitle: 'Frosted plastic for cool drinks.', image: cardImages.tumblers },
-  { title: '600mL Tumbler', subtitle: 'Standard tumbler size.', image: cardImages.tumblers },
-  { title: 'Wooden Tumbler', subtitle: 'Natural wooden tumbler.', image: cardImages.tumblers },
-  { title: '8oz Hip Flask', subtitle: 'Compact hip flask.', image: cardImages.tumblers },
-  { title: '8oz Hip Flask Set', subtitle: 'Hip flask with accessories.', image: cardImages.tumblers },
-  { title: 'Hip Flask Set', subtitle: 'Complete hip flask collection.', image: cardImages.tumblers },
-];
 
-const umbrellaItems = [
-  { title: 'Foldable Umbrella', subtitle: 'Compact and portable umbrella.', image: cardImages.toteBags },
-  { title: 'Two-Fold Umbrella', subtitle: 'Double-fold umbrella for easy storage.', image: cardImages.toteBags },
-  { title: 'Golf Umbrella', subtitle: 'Large golf umbrella for outdoor use.', image: cardImages.toteBags },
-  { title: 'Drawstring Bag', subtitle: 'Convenient drawstring bag.', image: cardImages.toteBags },
-  { title: 'Duffle Bag', subtitle: 'Spacious duffle bag for travel.', image: cardImages.toteBags },
-];
 
-const kitchenwareItems = [
-  { title: 'Cutlery Set w/ Case', subtitle: 'Complete cutlery set with protective case.', image: cardImages.businessCards },
-  { title: 'Cutlery Set w/ Canvas Pouch', subtitle: 'Cutlery set with canvas storage pouch.', image: cardImages.businessCards },
-  { title: 'Wooden Utensils w/ Canvas Pouch', subtitle: 'Wooden utensils with canvas pouch.', image: cardImages.businessCards },
-  { title: 'Cheese Board Set', subtitle: 'Elegant cheese board with accessories.', image: cardImages.businessCards },
-  { title: 'Cheese Knives Set w/ Box', subtitle: 'Specialized cheese knives in a box.', image: cardImages.businessCards },
-  { title: '5-Piece Coaster Set', subtitle: 'Set of 5 decorative coasters.', image: cardImages.businessCards },
-  { title: 'Wooden Lunchbox', subtitle: 'Natural wooden lunch container.', image: cardImages.businessCards },
-  { title: 'Keychain Bottle Opener', subtitle: 'Convenient keychain bottle opener.', image: cardImages.businessCards },
-  { title: 'Wooden Bottle Opener', subtitle: 'Sturdy wooden bottle opener.', image: cardImages.businessCards },
-];
 
-const apronItems = [
-  { title: 'Kitchen Apron', subtitle: 'Durable cotton apron with custom print.', image: cardImages.aprons },
-  { title: 'Barista Apron', subtitle: 'Professional apron for café staff.', image: cardImages.aprons },
-  { title: 'Chef Apron', subtitle: 'Premium apron for culinary professionals.', image: cardImages.aprons },
-];
 
-const hoodieItems = [
-  { title: 'Classic Hoodie', subtitle: 'Comfortable and customizable.', image: cardImages.tShirts },
-  { title: 'Performance Hoodie', subtitle: 'Lightweight fabric for active use.', image: cardImages.tShirts },
-  { title: 'Zip-up Hoodie', subtitle: 'Easy-wear with custom embroidery.', image: cardImages.tShirts },
-];
 
-const jacketItems = [
-  { title: 'Windbreaker Jacket', subtitle: 'Lightweight protection from the elements.', image: cardImages.jackets },
-  { title: 'Bomber Jacket', subtitle: 'Stylish and comfortable outerwear.', image: cardImages.jackets },
-  { title: 'Custom Jacket', subtitle: 'Premium fabric with custom design.', image: cardImages.jackets },
-];
 
-const accessoryItems = [
-  { title: 'Wooden Mirror', subtitle: 'Elegant wooden mirror.', image: cardImages.businessCards },
-  { title: 'Compact Mirror', subtitle: 'Portable compact mirror.', image: cardImages.businessCards },
-  { title: 'Wooden Hairbrush', subtitle: 'Natural wooden hairbrush.', image: cardImages.businessCards },
-  { title: 'Wooden Comb', subtitle: 'Sturdy wooden comb.', image: cardImages.businessCards },
-  { title: 'Wooden USB Flash Drive with Case (8GB)', subtitle: 'Wooden USB drive with case.', image: cardImages.businessCards },
-  { title: 'USB Flash Drive with Metal Case (8GB)', subtitle: 'Metal cased USB drive.', image: cardImages.businessCards },
-  { title: 'Mini Portable Fan', subtitle: 'Compact portable fan.', image: cardImages.businessCards },
-  { title: 'Leather Mouse Pad', subtitle: 'Premium leather mouse pad.', image: cardImages.businessCards },
-  { title: 'Wooden Lamp', subtitle: 'Decorative wooden lamp.', image: cardImages.businessCards },
-  { title: 'Wooden Keychain', subtitle: 'Wooden keychain accessory.', image: cardImages.businessCards },
-  { title: 'Wooden Clock', subtitle: 'Functional wooden clock.', image: cardImages.businessCards },
-  { title: 'Foldable Fans', subtitle: 'Portable foldable fans.', image: cardImages.businessCards },
-  { title: 'Wooden Fan', subtitle: 'Elegant wooden fan.', image: cardImages.businessCards },
-  { title: 'Paper Fans', subtitle: 'Traditional paper fans.', image: cardImages.businessCards },
-  { title: 'Chess Board w/ Wine Accessories', subtitle: 'Chess board with wine set.', image: cardImages.businessCards },
-  { title: 'Canvas Pouch (8.5 x 3.5 inches)', subtitle: 'Canvas storage pouch.', image: cardImages.businessCards },
-  { title: 'PVC Bag Tag', subtitle: 'Durable PVC bag tag.', image: cardImages.businessCards },
-  { title: 'Acrylic Name Plate', subtitle: 'Professional acrylic name plate.', image: cardImages.businessCards },
-  { title: 'Lanyard (1 inch or 3/4 inch)', subtitle: 'Adjustable lanyard options.', image: cardImages.businessCards },
-  { title: 'Short Lanyard w/ Carabiner', subtitle: 'Short lanyard with carabiner.', image: cardImages.businessCards },
-  { title: 'Button Pins', subtitle: 'Custom button pins.', image: cardImages.businessCards },
-  { title: 'Card Holder', subtitle: 'Convenient card holder.', image: cardImages.businessCards },
-];
 
-const bannerItems = [
-  { title: 'Customized Envelope', subtitle: 'Personalized envelopes.', image: cardImages.businessCards },
-  { title: 'Roll-up Banner', subtitle: 'Portable roll-up banner.', image: cardImages.businessCards },
-];
 
-const sintaItems = [
-  { title: 'Sintra Board', subtitle: 'Durable sintra board signage.', image: cardImages.businessCards },
-];
 
-const tarpaulinItems = [
-  { title: 'Bundle w/ Box and Ribbon', subtitle: 'Complete bundle with packaging.', image: cardImages.businessCards },
-  { title: 'Bundle Set', subtitle: 'Comprehensive bundle collection.', image: cardImages.businessCards },
-];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Merged category items
-const drinkwareItems = [...tumblerItems];
-const kitchenwareAllItems = [...kitchenwareItems];
-const umbrellasAndBagsItems = [...umbrellaItems, ...toteBagItems];
-const capsAndApparelItems = [...capItems, ...shirtItems, ...apronItems, ...hoodieItems, ...jacketItems];
-const notebooksAndPensItems = [...notebookItems, ...penItems, ...plannerItems];
-const accessoriesAllItems = [...accessoryItems];
-const bundleItems = [...cardItems, ...flyerItems, ...bannerItems, ...sintaItems, ...tarpaulinItems];
+const drinkwareItems = categories.drinkware;
+const kitchenwareAllItems = categories.kitchenware;
+const umbrellasAndBagsItems = [...categories.umbrellas, ...categories.toteBags];
+const capsAndApparelItems = [...categories.caps, ...categories.shirts, ...categories.aprons, ...categories.hoodies, ...categories.jackets];
+const notebooksAndPensItems = [...categories.notebooks, ...categories.pens, ...categories.planners];
+const accessoriesAllItems = categories.accessories;
+const bundleItems = [...categories.cards, ...categories.flyers, ...categories.banners, ...categories.sinta, ...categories.tarpaulin];
 
 const allSearchItems: SearchEntry[] = [
   ...drinkwareItems.map((item) => ({ title: item.title, page: 'drinkware', pageLabel: 'Drinkware', item })),
