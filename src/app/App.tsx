@@ -11,6 +11,7 @@ import { NotebooksAndPensPage } from './components/NotebooksAndPensPage';
 import { AccessoriesPage } from './components/AccessoriesPage';
 import { BundlePage } from './components/BundlePage';
 import { InfoPage } from './components/InfoPage';
+import { AboutUsPage } from './components/AboutUsPage';
 
 const imageModules = import.meta.glob('/src/assets/images/**/*.{png,jpg,jpeg,webp}', { eager: true }) as Record<string, { default: string }>;
 const localImages = Object.fromEntries(
@@ -46,6 +47,7 @@ type SearchEntry = {
     title: string;
     subtitle: string;
     image: string;
+    price: string;
     colors?: string[];
     colorOptions?: { name: string; hex: string; image: string }[];
   };
@@ -57,116 +59,139 @@ const categories = {
       title: '150mL Pocket Thermos',
       subtitle: 'Compact thermos for on-the-go.',
       image: imageFor('drinkware/01 - 150mL Pocket Thermos', cardImages.tumblers),
+      price: '$15.00',
     },
     {
       title: '250mL Pocket Thermos',
       subtitle: 'Portable thermos for daily use.',
       image: imageFor('drinkware/02 - 250mL Pocket Thermos', cardImages.tumblers),
+      price: '$18.00',
     },
     {
       title: '350mL Mini Cup',
       subtitle: 'Small cup for quick drinks.',
       image: imageFor('drinkware/03 - 350mL Mini Cup', cardImages.tumblers),
+      price: '$12.00',
     },
     {
       title: '350mL Stainless Mug',
       subtitle: 'Durable stainless steel mug.',
       image: imageFor('drinkware/04 - 350mL Stainless Mug', cardImages.tumblers),
+      price: '$20.00',
     },
     {
       title: '350mL Egg Mug',
       subtitle: 'Unique egg-shaped mug.',
       image: imageFor('drinkware/05 - 350mL Egg Mug', cardImages.tumblers),
+      price: '$22.00',
     },
     {
       title: '500mL Tyeso w/ Flat Top',
       subtitle: 'Stylish thermos with a flat lid.',
       image: imageFor('drinkware/06 - 500mL Tyeso w Flat Top', cardImages.tumblers),
+      price: '$25.00',
     },
     {
       title: '500mL Vacuum Flask Set',
       subtitle: 'Insulated flask set for hot drinks.',
       image: imageFor('drinkware/07 - 500mL Vacuum Flask Set', cardImages.tumblers),
+      price: '$30.00',
     },
     {
       title: '530mL Tyeso w/ Lock',
       subtitle: 'Secure thermos with locking lid.',
       image: imageFor('drinkware/08 - 530mL Tyeso w Lock', cardImages.tumblers),
+      price: '$28.00',
     },
     {
       title: '750mL Tyeso w/ Lock',
       subtitle: 'Large thermos with secure lock.',
       image: imageFor('drinkware/09 - 750mL Tyeso w Lock', cardImages.tumblers),
+      price: '$32.00',
     },
     {
       title: '750mL Tyeso w/ Nozzle',
       subtitle: 'Thermos with convenient nozzle.',
       image: imageFor('drinkware/10 - 750mL Tyeso w Nozzle', cardImages.tumblers),
+      price: '$35.00',
     },
     {
       title: '750mL Tyeso Bowling',
       subtitle: 'Fun bowling-themed thermos.',
       image: imageFor('drinkware/11 - 750mL Tyeso Bowling', cardImages.tumblers),
+      price: '$38.00',
     },
     {
       title: '600mL STR w/ Handle',
       subtitle: 'Straight thermos with handle.',
       image: imageFor('drinkware/12 - 600mL STR w Handle', cardImages.tumblers),
+      price: '$28.00',
     },
     {
       title: '900mL STR w/ Handle',
       subtitle: 'Large straight thermos.',
       image: imageFor('drinkware/13 - 900mL STR w Handle', cardImages.tumblers),
+      price: '$35.00',
     },
     {
       title: '1200mL STR Tumbler',
       subtitle: 'Extra large tumbler option.',
       image: imageFor('drinkware/14 - 1200mL STR Tumbler', cardImages.tumblers),
+      price: '$40.00',
     },
     {
       title: '600mL Frosted Plastic Tumbler',
       subtitle: 'Frosted plastic for cool drinks.',
       image: imageFor('drinkware/15 - 600mL Frosted Plastic Tumbler', cardImages.tumblers),
+      price: '$18.00',
     },
     {
       title: '8oz Hip Flask Set',
       subtitle: 'Hip flask set with accessories.',
       image: imageFor('drinkware/16 - 8oz Hip Flask Set', cardImages.tumblers),
+      price: '$45.00',
     },
     {
       title: '8oz Hip Flask',
       subtitle: 'Compact hip flask.',
       image: imageFor('drinkware/17 - 8oz Hip Flask', cardImages.tumblers),
+      price: '$25.00',
     },
     {
       title: 'Hip Flask Set',
       subtitle: 'Complete hip flask collection.',
       image: imageFor('drinkware/18 - Hip Flask Set', cardImages.tumblers),
+      price: '$50.00',
     },
     {
       title: 'Beer Mug',
       subtitle: 'Classic beer mug design.',
       image: imageFor('drinkware/19 - Beer Mug', cardImages.tumblers),
+      price: '$15.00',
     },
     {
       title: '600 mL Tumbler',
       subtitle: 'Standard tumbler size.',
       image: imageFor('drinkware/20 - 600 mL Tumbler', cardImages.tumblers),
+      price: '$20.00',
     },
     {
       title: 'Wooden Tumbler',
       subtitle: 'Natural wooden tumbler.',
       image: imageFor('drinkware/21 - Wooden Tumbler', cardImages.tumblers),
+      price: '$25.00',
     },
     {
       title: '350mL Wooden Mug',
       subtitle: 'Eco-friendly wooden mug.',
       image: imageFor('drinkware/22 - 350mL Wooden Mug', cardImages.tumblers),
+      price: '$18.00',
     },
     {
       title: 'Ceramic Mugs',
       subtitle: 'Elegant ceramic mug collection.',
       image: imageFor('drinkware/23 - Ceramic Mugs', cardImages.tumblers),
+      price: '$30.00',
     },
   ],
   kitchenware: [
@@ -174,59 +199,68 @@ const categories = {
       title: 'Wooden Lunchbox',
       subtitle: 'Natural wooden lunchbox with secure lid.',
       image: imageFor('kitchenware/24 - Wooden Lunchbox', cardImages.businessCards),
+      price: '$25.00',
     },
     {
       title: '5-Piece Coaster Set',
       subtitle: 'Set of five decorative coasters.',
       image: imageFor('kitchenware/25 - 5-Piece Coaster Set', cardImages.businessCards),
+      price: '$15.00',
     },
     {
       title: 'Cheese Board Set',
       subtitle: 'Cheese board set with serving accessories.',
       image: imageFor('kitchenware/26 - Cheese Board Set', cardImages.businessCards),
+      price: '$40.00',
     },
     {
       title: 'Cutlery Set w/ Case',
       subtitle: 'Portable cutlery set with protective case.',
       image: imageFor('kitchenware/27 - Cutlery Set w/ Case', cardImages.businessCards),
+      price: '$20.00',
     },
     {
       title: 'Cutlery Set w/ Canvas Pouch',
       subtitle: 'Cutlery set with canvas storage pouch.',
       image: imageFor('kitchenware/28 - Cutlery Set w/ Canvas Pouch', cardImages.businessCards),
+      price: '$22.00',
     },
     {
       title: 'Wooden Utensils with Canvas Pouch',
       subtitle: 'Reusable utensils with a canvas pouch.',
       image: imageFor('kitchenware/29 - Wooden Utensils with Canvas Pouch', cardImages.businessCards),
+      price: '$18.00',
     },
     {
       title: 'Cheese Knives Set w/ Box',
       subtitle: 'Specialized cheese knives in a premium box.',
       image: imageFor('kitchenware/30 - Cheese Knives Set w/ Box', cardImages.businessCards),
+      price: '$35.00',
     },
     {
       title: 'Keychain Bottle Opener',
       subtitle: 'Bottle opener attached to a handy keychain.',
       image: imageFor('kitchenware/31 - Keychain Bottle Opener', cardImages.businessCards),
+      price: '$8.00',
     },
     {
       title: 'Wooden Bottle Opener',
       subtitle: 'Sturdy wooden bottle opener.',
       image: imageFor('kitchenware/32 - Wooden Bottle Opener', cardImages.businessCards),
+      price: '$12.00',
     },
   ],
   umbrellas: [
-    { title: 'Two Fold Umbrella', subtitle: 'Compact, two-fold umbrella for easy storage.', image: imageFor('umbrellasAndBags/33 - Two Fold Umbrella', cardImages.toteBags) },
-    { title: 'Golf Umbrella', subtitle: 'Large golf umbrella for outdoor use.', image: imageFor('umbrellasAndBags/34 - Golf Umbrella', cardImages.toteBags) },
-    { title: 'Foldable Umbrella', subtitle: 'Compact and portable umbrella.', image: imageFor('umbrellasAndBags/35 - Foldable Umbrella', cardImages.toteBags) },
+    { title: 'Two Fold Umbrella', subtitle: 'Compact, two-fold umbrella for easy storage.', image: imageFor('umbrellasAndBags/33 - Two Fold Umbrella', cardImages.toteBags), price: '$25.00' },
+    { title: 'Golf Umbrella', subtitle: 'Large golf umbrella for outdoor use.', image: imageFor('umbrellasAndBags/34 - Golf Umbrella', cardImages.toteBags), price: '$35.00' },
+    { title: 'Foldable Umbrella', subtitle: 'Compact and portable umbrella.', image: imageFor('umbrellasAndBags/35 - Foldable Umbrella', cardImages.toteBags), price: '$20.00' },
   ],
   toteBags: [
-    { title: 'Flat Canvas Tote Bag', subtitle: 'Durable canvas tote bag with wide handles.', image: imageFor('umbrellasAndBags/36 - Flat Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
-    { title: 'Drawstring Bag', subtitle: 'Lightweight drawstring bag for easy carrying.', image: imageFor('umbrellasAndBags/37 - Drawstring Bag', cardImages.toteBags), colors: ['#000080', '#FFFFFF', '#228B22'] },
-    { title: 'Customized Canvas Tote Bag', subtitle: 'Custom-printed canvas tote bag.', image: imageFor('umbrellasAndBags/38 - Customized Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
-    { title: 'Customized Canvas Tote Bag (With pockets)', subtitle: 'Canvas tote bag with extra pocket storage.', image: imageFor('umbrellasAndBags/39 - Customized Canvas Tote Bag (With pockets)', cardImages.toteBags), colors: ['#FF4500', '#000000', '#FFD700'] },
-    { title: 'Duffle Bag', subtitle: 'Spacious duffle bag for travel and events.', image: imageFor('umbrellasAndBags/40 - Duffle Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'] },
+    { title: 'Flat Canvas Tote Bag', subtitle: 'Durable canvas tote bag with wide handles.', image: imageFor('umbrellasAndBags/36 - Flat Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'], price: '$15.00' },
+    { title: 'Drawstring Bag', subtitle: 'Lightweight drawstring bag for easy carrying.', image: imageFor('umbrellasAndBags/37 - Drawstring Bag', cardImages.toteBags), colors: ['#000080', '#FFFFFF', '#228B22'], price: '$10.00' },
+    { title: 'Customized Canvas Tote Bag', subtitle: 'Custom-printed canvas tote bag.', image: imageFor('umbrellasAndBags/38 - Customized Canvas Tote Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'], price: '$18.00' },
+    { title: 'Customized Canvas Tote Bag (With pockets)', subtitle: 'Canvas tote bag with extra pocket storage.', image: imageFor('umbrellasAndBags/39 - Customized Canvas Tote Bag (With pockets)', cardImages.toteBags), colors: ['#FF4500', '#000000', '#FFD700'], price: '$20.00' },
+    { title: 'Duffle Bag', subtitle: 'Spacious duffle bag for travel and events.', image: imageFor('umbrellasAndBags/40 - Duffle Bag', cardImages.toteBags), colors: ['#000000', '#FFFFFF', '#8B4513'], price: '$40.00' },
   ],
   caps: [
     {
@@ -244,6 +278,7 @@ const categories = {
         { name: 'Violet', hex: '#8A2BE2', image: imageFor('capsAndApparel/caps/acid wb violet', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/acid wb yellow', cardImages.caps) },
       ],
+      price: '$20.00',
     },
     {
       title: 'Acid Washed Bucket Hat',
@@ -260,6 +295,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/acid wb white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/acid wb yellow', cardImages.caps) },
       ],
+      price: '$22.00',
     },
     {
       title: 'Corduroy Cap',
@@ -276,6 +312,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/corduroy white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/corduroy yellow', cardImages.caps) },
       ],
+      price: '$25.00',
     },
     {
       title: 'Cotton Cap',
@@ -292,6 +329,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cotton white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cotton yellow', cardImages.caps) },
       ],
+      price: '$18.00',
     },
     {
       title: 'Corduroy Bucket Hat',
@@ -308,6 +346,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cb white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cb yellow', cardImages.caps) },
       ],
+      price: '$28.00',
     },
     {
       title: 'Golf Cap',
@@ -324,6 +363,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/gcap white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/gcap yellow', cardImages.caps) },
       ],
+      price: '$22.00',
     },
     {
       title: 'Trucker Cap 1-Tone',
@@ -340,6 +380,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/trucker1 white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/trucker1 yellow', cardImages.caps) },
       ],
+      price: '$20.00',
     },
     {
       title: 'Trucker Cap 2-Tone',
@@ -356,6 +397,7 @@ const categories = {
         { name: 'Violet', hex: '#8A2BE2', image: imageFor('capsAndApparel/caps/trucker2 violet', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/trucker2 yellow', cardImages.caps) },
       ],
+      price: '$21.00',
     },
     {
       title: 'Cotton Bucket Hat',
@@ -372,6 +414,7 @@ const categories = {
         { name: 'White', hex: '#FFFFFF', image: imageFor('capsAndApparel/caps/cottonb white', cardImages.caps) },
         { name: 'Yellow', hex: '#FFFF00', image: imageFor('capsAndApparel/caps/cottonb yellow', cardImages.caps) },
       ],
+      price: '$19.00',
     },
   ],
   shirts: [
@@ -379,16 +422,19 @@ const categories = {
       title: 'Round Neck Shirt',
       subtitle: 'Classic round neck shirt for everyday wear.',
       image: imageFor('capsAndApparel/41 - Round Neck Shirt', cardImages.tShirts),
+      price: '$25.00',
     },
     {
       title: 'Roundneck Dri-fit Shirt',
       subtitle: 'Breathable dri-fit shirt for active use.',
       image: imageFor('capsAndApparel/42 - Roundneck Dri-fit Shirt', cardImages.tShirts),
+      price: '$30.00',
     },
     {
       title: 'Honeycomb Polo Shirt',
       subtitle: 'Smart polo shirt with honeycomb texture.',
       image: imageFor('capsAndApparel/44 - Honeycomb Polo Shirt', cardImages.tShirts),
+      price: '$28.00',
     },
   ],
   aprons: [
@@ -396,6 +442,7 @@ const categories = {
       title: 'Customized Apron',
       subtitle: 'Durable custom apron for kitchen or catering staff.',
       image: imageFor('capsAndApparel/43 - Customized Apron', cardImages.aprons),
+      price: '$20.00',
     },
   ],
   hoodies: [
@@ -403,6 +450,7 @@ const categories = {
       title: 'Hoodies',
       subtitle: 'Cozy hoodies with custom branding options.',
       image: imageFor('capsAndApparel/46 - Hoodies', cardImages.tShirts),
+      price: '$45.00',
     },
   ],
   jackets: [
@@ -410,6 +458,7 @@ const categories = {
       title: 'Corporate Jacket',
       subtitle: 'Professional jacket suitable for corporate uniforms.',
       image: imageFor('capsAndApparel/45 - Corporate Jacket', cardImages.jackets),
+      price: '$60.00',
     },
   ],
   notebooks: [
@@ -417,26 +466,31 @@ const categories = {
       title: 'A5 Moleskin Notebook (100 leaves)',
       subtitle: 'Premium moleskin notebook.',
       image: imageFor('notebooksAndPens/47 - A5 Moleskin Notebook (100 leaves)', cardImages.plannersNotebooks),
+      price: '$15.00',
     },
     {
       title: 'A5 Moleskin Notebook (150 leaves)',
       subtitle: 'Extended notebook with 150 leaves.',
       image: imageFor('notebooksAndPens/48 - A5 Moleskin Notebook (150 leaves)', cardImages.plannersNotebooks),
+      price: '$20.00',
     },
     {
       title: 'A5 Notebook w/ Pen',
       subtitle: 'Notebook with included pen.',
       image: imageFor('notebooksAndPens/57 - A5 Notebook w Pen', cardImages.plannersNotebooks),
+      price: '$18.00',
     },
     {
       title: 'Phone Stand',
       subtitle: 'Convenient phone stand.',
       image: imageFor('notebooksAndPens/58 - Phone Stand', cardImages.plannersNotebooks),
+      price: '$10.00',
     },
     {
       title: 'Pocket Notebook',
       subtitle: 'Small portable notebook.',
       image: imageFor('notebooksAndPens/60 - Pocket Notebook', cardImages.plannersNotebooks),
+      price: '$8.00',
     },
   ],
   pens: [
@@ -444,51 +498,61 @@ const categories = {
       title: 'Bamboo Ballpen',
       subtitle: 'Eco-friendly bamboo pen.',
       image: imageFor('notebooksAndPens/49 - Bamboo Ballpen', cardImages.pens),
+      price: '$5.00',
     },
     {
       title: 'Golf Pen w/ Case',
       subtitle: 'Golf-themed pen with case.',
       image: imageFor('notebooksAndPens/50 - Golf Pen w Case', cardImages.pens),
+      price: '$12.00',
     },
     {
       title: 'Silver Plastic Ballpen',
       subtitle: 'Classic silver plastic pen.',
       image: imageFor('notebooksAndPens/51 - Silver Plastic Ballpen', cardImages.pens),
+      price: '$3.00',
     },
     {
       title: 'Retractable Metal Ballpen',
       subtitle: 'Retractable metal pen.',
       image: imageFor('notebooksAndPens/52 - Retractable Metal Ballpen', cardImages.pens),
+      price: '$8.00',
     },
     {
       title: 'Plastic Ballpen w/ Stylus',
       subtitle: 'Pen with stylus for touchscreens.',
       image: imageFor('notebooksAndPens/53 - Plastic Ballpen w Stylus', cardImages.pens),
+      price: '$6.00',
     },
     {
       title: 'Gold Metal Ballpen',
       subtitle: 'Elegant gold metal pen.',
       image: imageFor('notebooksAndPens/54 - Gold Metal Ballpen', cardImages.pens),
+      price: '$10.00',
     },
     {
       title: 'Plastic Pen w/ Sleeve',
       subtitle: 'Pen with protective sleeve.',
       image: imageFor('notebooksAndPens/55 - Plastic Pen w Sleeve', cardImages.pens),
+      price: '$4.00',
     },
     {
       title: 'Sign Pen w/ Case',
       subtitle: 'Signature pen with case.',
       image: imageFor('notebooksAndPens/56 - Sign Pen w Case', cardImages.pens),
+      price: '$15.00',
     },
     {
       title: 'Bamboo Pen w/ Case',
       subtitle: 'Bamboo pen with case.',
       image: imageFor('notebooksAndPens/59 - Bamboo Pen w Case', cardImages.pens),
+      price: '$7.00',
     },
     {
       title: 'Desk Pen',
       subtitle: 'Professional desk pen.',
       image: imageFor('notebooksAndPens/61 - Desk Pen', cardImages.pens),
+      price: '$12.00',
     },
   ],
   planners: [],
@@ -497,106 +561,127 @@ const categories = {
       title: 'Wooden Mirror',
       subtitle: 'Elegant wooden mirror.',
       image: imageFor('accessories/62 - Wooden Mirror', cardImages.businessCards),
+      price: '$25.00',
     },
     {
       title: 'Wooden Lamp',
       subtitle: 'Decorative wooden lamp.',
       image: imageFor('accessories/63 - Wooden Lamp', cardImages.businessCards),
+      price: '$40.00',
     },
     {
       title: 'Wooden Keychain',
       subtitle: 'Wooden keychain accessory.',
       image: imageFor('accessories/64 - Wooden Keychain', cardImages.businessCards),
+      price: '$8.00',
     },
     {
       title: 'Wooden Clock',
       subtitle: 'Functional wooden clock.',
       image: imageFor('accessories/65 - Wooden Clock', cardImages.businessCards),
+      price: '$30.00',
     },
     {
       title: 'Wooden Hairbrush',
       subtitle: 'Natural wooden hairbrush.',
       image: imageFor('accessories/66 - Wooden Hairbrush', cardImages.businessCards),
+      price: '$15.00',
     },
     {
       title: 'Wooden Comb',
       subtitle: 'Sturdy wooden comb.',
       image: imageFor('accessories/67 - Wooden Comb', cardImages.businessCards),
+      price: '$10.00',
     },
     {
       title: 'Wooden USB Flash drive with Case (8GB)',
       subtitle: 'Wooden USB drive with case.',
       image: imageFor('accessories/68 - Wooden USB Flash drive with Case (8GB)', cardImages.businessCards),
+      price: '$20.00',
     },
     {
       title: 'USB Flash drive with Metal Case (8GB)',
-      subtitle: 'Metal-cased USB drive.',
+      subtitle: 'Metal cased USB drive.',
       image: imageFor('accessories/69 - USB Flash drive with Metal Case (8GB)', cardImages.businessCards),
+      price: '$18.00',
     },
     {
       title: 'Compact Mirror',
       subtitle: 'Portable compact mirror.',
       image: imageFor('accessories/70 - Compact Mirror', cardImages.businessCards),
+      price: '$12.00',
     },
     {
       title: 'Foldable Fans',
       subtitle: 'Portable foldable fans.',
       image: imageFor('accessories/71 - Foldable Fans', cardImages.businessCards),
+      price: '$8.00',
     },
     {
       title: 'Chess Board w/ Wine Accessories',
       subtitle: 'Chess board with wine accessories.',
       image: imageFor('accessories/72 - Chess Board w Wine Accessories', cardImages.businessCards),
+      price: '$50.00',
     },
     {
       title: 'Mini Portable Fans',
       subtitle: 'Compact portable fans.',
       image: imageFor('accessories/73 - Mini Portable Fans', cardImages.businessCards),
+      price: '$10.00',
     },
     {
       title: '8.5 x 3.5 inches Canvas Pouch',
       subtitle: 'Canvas pouch for small essentials.',
       image: imageFor('accessories/74 - 8.5 x 3.5 inches Canvas Pouch', cardImages.businessCards),
+      price: '$15.00',
     },
     {
       title: 'PVC Bag Tag',
       subtitle: 'Durable PVC bag tag.',
       image: imageFor('accessories/75 - PVC Bag Tag', cardImages.businessCards),
+      price: '$5.00',
     },
     {
       title: 'Acrylic Name Plate',
       subtitle: 'Professional acrylic name plate.',
       image: imageFor('accessories/76 - Acrylic Name Plate', cardImages.businessCards),
+      price: '$20.00',
     },
     {
       title: 'Lanyard',
       subtitle: 'Custom lanyard for ID cards and badges.',
       image: imageFor('accessories/77 - Lanyard', cardImages.businessCards),
+      price: '$6.00',
     },
     {
       title: 'Leather Mouse Pad',
       subtitle: 'Premium leather mouse pad.',
       image: imageFor('accessories/78 - Leather Mouse Pad', cardImages.businessCards),
+      price: '$25.00',
     },
     {
       title: 'Button Pins',
       subtitle: 'Custom button pins.',
       image: imageFor('accessories/79 - Button Pins', cardImages.businessCards),
+      price: '$3.00',
     },
     {
       title: 'Card Holder',
       subtitle: 'Convenient card holder.',
       image: imageFor('accessories/80 - Card Holder', cardImages.businessCards),
+      price: '$8.00',
     },
     {
       title: 'Short Lanyard w/ Carabiner',
       subtitle: 'Short lanyard with a carabiner clip.',
       image: imageFor('accessories/81 - Short Lanyard w Carabiner', cardImages.businessCards),
+      price: '$7.00',
     },
     {
       title: 'Wooden Fan',
       subtitle: 'Elegant wooden fan.',
       image: imageFor('accessories/82 - Wooden Fan', cardImages.businessCards),
+      price: '$18.00',
     },
   ],
   cards: [
@@ -604,6 +689,7 @@ const categories = {
       title: 'Paper Fans',
       subtitle: 'Paper Fans with custom designs.',
       image: imageFor('bundle/92 - Paper Fans', cardImages.businessCards),
+      price: '$5.00',
     },
   ],
   flyers: [
@@ -611,6 +697,7 @@ const categories = {
       title: 'Bundle with Box and Ribbon',
       subtitle: 'Custom Bundle with Box and Ribbon.',
       image: imageFor('bundle/89 - Customized Envelope', cardImages.businessCards),
+      price: '$30.00',
     },
   ],
   banners: [
@@ -618,11 +705,13 @@ const categories = {
       title: '50-sheet Notepad',
       subtitle: 'Compact notepad for quick notes.',
       image: imageFor('bundle/86 - 50-sheet Notepad', cardImages.businessCards),
+      price: '$10.00',
     },
     {
       title: 'Roll-up Banner',
       subtitle: 'Portable roll-up banner.',
       image: imageFor('bundle/87 - Roll-up Banner', cardImages.businessCards),
+      price: '$40.00',
     },
   ],
   sinta: [
@@ -630,16 +719,19 @@ const categories = {
       title: 'Sintra Board',
       subtitle: 'Durable sintra board signage.',
       image: imageFor('bundle/88 - Sintra Board', cardImages.businessCards),
+      price: '$35.00',
     },
     {
       title: 'Customized Envelope',
       subtitle: 'Personalized envelopes.',
       image: imageFor('bundle/90 - Bundle with Box and Ribbon', cardImages.businessCards),
+      price: '$15.00',
     },
         {
       title: 'Bundle Set',
       subtitle: 'Custom Bundle Set for gift giving.',
       image: imageFor('bundle/91 - Bundle Set', cardImages.businessCards),
+      price: '$25.00',
     },
   ],
   tarpaulin: [
@@ -647,16 +739,19 @@ const categories = {
       title: 'A5 Notebooks (Ruled Pages)',
       subtitle: 'Notebooks  for Writing.',
       image: imageFor('bundle/83 - A5 Notebook (Ruled Pages)', cardImages.businessCards),
+      price: '$12.00',
     },
     {
       title: 'A5 Flyers',
       subtitle: 'Custom flyers for promotion.',
       image: imageFor('bundle/84 - A5 Flyers', cardImages.businessCards),
+      price: '$8.00',
     },
     {
       title: 'Business Cards',
       subtitle: 'Custom business cards for various uses.',
       image: imageFor('bundle/85 - Business Cards', cardImages.businessCards),
+      price: '$5.00',
     },
   ],
 };
@@ -837,6 +932,8 @@ export default function App() {
     pageContent = <AccessoriesPage items={accessoriesAllItems} onBack={() => (window.location.hash = '#home')} initialSelectedItemTitle={searchSelectedItemTitle} />;
   } else if (page === 'bundle') {
     pageContent = <BundlePage items={bundleItems} onBack={() => (window.location.hash = '#home')} initialSelectedItemTitle={searchSelectedItemTitle} />;
+  } else if (page === 'about') {
+    pageContent = <AboutUsPage />;
   } else if (page === 'info') {
     pageContent = <InfoPage image={localImages['info eis'] ?? cardImages.eisBanner} />;
   }

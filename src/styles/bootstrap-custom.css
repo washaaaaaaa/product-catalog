@@ -9,6 +9,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -28,6 +29,10 @@ body {
 /* ========================
    Navigation Styling
    ======================== */
+
+.navbar {
+  z-index: 1100;
+}
 
 .navbar-dark {
   background-color: rgba(250, 250, 250, 0.95);
@@ -349,14 +354,30 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 767.98px) {
+  .caps-modal-overlay {
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .caps-modal {
+    margin: auto;
+  }
 }
 
 .caps-modal {
-  width: min(100%, 1120px);
+  width: min(100%, 800px);
+  max-width: calc(100% - 2rem);
+  box-sizing: border-box;
+  max-height: calc(100vh - 2rem);
   border-radius: 2rem;
   background: #ffffff;
   overflow: hidden;
   position: relative;
+  margin: auto;
 }
 
 .caps-modal-close {
@@ -385,6 +406,14 @@ body {
   padding: 2rem;
 }
 
+@media (max-width: 767.98px) {
+  .caps-modal-body {
+    padding: 1rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+  }
+}
+
 .caps-modal-image-card {
   position: relative;
   background: #ffffff;
@@ -398,6 +427,13 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+@media (max-width: 767.98px) {
+  .caps-modal-image-card {
+    min-height: 220px;
+    padding: 1rem;
+  }
+}
+
 .caps-modal-image {
   width: auto;
   max-width: 520px;
@@ -406,6 +442,18 @@ body {
   object-fit: contain;
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 767.98px) {
+  .caps-modal-image {
+    max-width: 100%;
+    max-height: 280px;
+  }
+
+  .caps-modal-close {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
 }
 
 .caps-modal-image-overlay {
@@ -422,6 +470,12 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 100%;
+}
+
+@media (max-width: 767.98px) {
+  .caps-modal-controls {
+    padding: 1rem !important;
+  }
 }
 
 .caps-modal-section {
@@ -673,13 +727,32 @@ footer .small {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 767.98px) {
   .navbar-collapse {
-    margin-top: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    min-width: 100vw;
+    background: #ffffff;
+    padding: 1rem 0;
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08);
+    z-index: 1100;
+    margin-top: 0;
+    box-sizing: border-box;
+  }
+
+  .navbar-collapse.show {
+    display: block;
   }
 
   .navbar-nav {
     gap: 0.5rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1.25rem;
   }
 
   .hero-card h2 {

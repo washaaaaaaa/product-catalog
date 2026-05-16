@@ -4,6 +4,7 @@ export interface CategoryItem {
   title: string;
   subtitle: string;
   image: string;
+  price: string;
   colors?: string[];
   colorOptions?: { name: string; hex: string; image: string }[];
 }
@@ -108,7 +109,7 @@ export function CategoryPage({
                   </div>
                 </div>
                 <div className="col-12 col-lg-5">
-                  <div className="caps-modal-controls p-4">
+                  <div className="caps-modal-controls p-2 p-md-4">
                     {getColorOptions(selectedItem).length > 0 && (
                       <div className="caps-modal-section mb-4">
                         <p className="text-uppercase text-muted small mb-2">Colors:</p>
@@ -129,6 +130,7 @@ export function CategoryPage({
                     <div className="caps-modal-summary">
                       <h2 className="h4 fw-bold mb-3">{selectedItem.title}</h2>
                       <p className="text-muted mb-0">{selectedItem.subtitle}</p>
+                      <p className="fw-bold mt-3 mb-0 fs-5">{selectedItem.price}</p>
                       {selectedColor && <p className="text-muted mt-3">Selected color: <span>{selectedColor}</span></p>}
                     </div>
                   </div>
@@ -157,6 +159,7 @@ export function CategoryPage({
                 <div>
                   <h2 className="h5 fw-bold mb-2">{item.title}</h2>
                   <p className="text-muted mb-3">{item.subtitle}</p>
+                  <p className="fw-bold mb-3 fs-6">{item.price}</p>
                 </div>
                 {getColorOptions(item).length > 0 ? (
                   <div className="caps-colors d-flex justify-content-center align-items-center gap-2 mb-0">
